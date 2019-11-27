@@ -1,0 +1,5 @@
+awscli
+aws-sam-cli
+requests-toolbelt==0.9.1
+Pillow==6.2.1
+pytest==5.1.3
