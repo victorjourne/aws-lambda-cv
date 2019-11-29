@@ -38,6 +38,9 @@ def lambda_handler(event, context):
         }
 
     content_type = event.get('headers', {"content-type" : ''}).get('content-type')
+    if not content_type: # Could be case sensitive...
+            content_type = event.get('headers', {"Content-Type" : ''}).get('Content-Type')
+
     print(content_type)
     if 'multipart/form-data' in content_type  :
 
