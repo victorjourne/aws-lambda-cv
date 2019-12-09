@@ -16,7 +16,7 @@ Resources:
       StageName: Prod
       DefinitionUri: ./swagger.yaml
       BinaryMediaTypes:
-         - multipart~1form-data
+         - image~1jpg
   ToyFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
@@ -28,7 +28,7 @@ Resources:
       Policies:
         - AWSLambdaBasicExecutionRole
       Layers:
-          - arn:aws:lambda:eu-west-1:016363657960:layer:mylayer:2
+          - arn:aws:lambda:eu-west-1:016363657960:layer:pillow:1
       Events:
         PostEvent:
           Type: Api

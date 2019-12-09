@@ -15,19 +15,18 @@ The API deployment with sam-cli is included in this repository.
 5. Test locally with pytest. The test consists to send to lambda function cat.jpg and check the image shape.
 `pytest test -v`
 6. Build lambda layer
-- `mkdir -p layers/mylayer/python`
-- `pip install requests-toolbelt==0.9.1 Pillow==6.2.1 numpy==1.17.4 -t layers/mylayer/python`
-- `cd layers/mylayer; zip -r mylayer.zip python;cd ../..`
-- `aws lambda publish-layer-version --layer-name mylayer --zip-file fileb://layers/mylayer/mylayer.zip --compatible-runtimes python3.6`
+- `mkdir -p layers/pillow/python`
+- `pip install Pillow==6.2.1 numpy==1.17.4 -t layers/pillow/python`
+- `cd layers/pillow; zip -r pillow.zip python;cd ../..`
+- `aws lambda publish-layer-version --layer-name pillow --zip-file fileb://layers/pillow/pillow.zip --compatible-runtimes python3.6`
 7. Test it locally :
+- Build package `sam build`
 - Run API : `sam local start-api`
-- Send image : `curl "http://127.0.0.1:3000/shape" -H "Content-Type: multipart/form-data" -F "image=@test/cat.jpg"`
-8. Build, package and deploy aws lambda :
-- `sam build`
+- Send image : `curl "http://127.0.0.1:3000/shape" -H "Content-Type: image/jpg" --data-binary "@test/cat.jpg"`
+8. Package and deploy aws lambda :
 - `sam package --s3-bucket aws-lambda-cv`
 - `aws cloudformation delete-stack --stack-name aws-lambda-cv;sleep 15;`
 - `aws cloudformation deploy --template-file packaged.yaml --stack-name aws-lambda-cv`
 
-- `sam package --template-file src/template.yaml  --output-template-file packaged.yaml`
 ## Utilisation
-`curl "https://orz66c72s2.execute-api.eu-west-1.amazonaws.com/Prod/shape" -H "ultipart/form-data" -F "image=@test/cat.jpg"`
+`curl "https://8b1gvs25v5.execute-api.eu-west-1.amazonaws.com/Prod/shape"  -H "Content-Type: image/jpg" --data-binary "@test/cat.jpg"`
