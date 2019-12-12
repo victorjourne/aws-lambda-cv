@@ -3,10 +3,12 @@ import pytest
 import io
 
 from requests_toolbelt.multipart.encoder import MultipartEncoder
-# Import lambda_function outside
-sys.path.append(os.path.join(os.path.dirname(__file__),'aws_lambda'))
+# Import lambda_function
+import imp
+util = imp.load_source("lambda_function", "lambda_function.py")
 
 from lambda_function import lambda_handler
+
 
 def test_handler(apigateway_event):
 
