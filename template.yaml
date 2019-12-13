@@ -24,7 +24,7 @@ Resources:
       CodeUri:  .
       Handler: lambda_function.lambda_handler
       Role: !Sub arn:aws:iam::${AWS::AccountId}:role/lambda
-      Runtime: python3.6
+      Runtime: python3.7
       Policies:
         - AWSLambdaBasicExecutionRole
       Layers:
