@@ -16,4 +16,4 @@ def test_handler(apigateway_event):
     body = resp['body']
     print(body)
     assert resp['statusCode'] == 200
-    assert eval(body)== [[600, 400, 3]], "size of image is : %s"% eval(body)
+    assert eval(body)== [600, 400, 3], "size of image is : %s"% eval(body)

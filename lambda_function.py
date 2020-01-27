@@ -60,10 +60,10 @@ def lambda_handler(event, context):
             img_io.seek(0)
             img = Image.open(img_io)
             img = np.array(img)
-            res.append(function(img))
+            res = function(img)
         except Exception as e:
             print(e)
-            res.append([])
+            res = e
 
     return {
             'headers': {
