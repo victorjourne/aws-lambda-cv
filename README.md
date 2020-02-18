@@ -21,4 +21,4 @@ The API deployment with sam-cli is included in this repository.
 - `make deploy`
 
 ## Utilisation
-`curl "https://7w26u0d56g.execute-api.eu-west-1.amazonaws.com/Prod/shape"  -H "Content-Type: multipart/form-data" -F "image=@test/cat.jpg"`
+`curl "https://2qhuxkow20.execute-api.eu-west-1.amazonaws.com/Prod/shape" -H "Content-Type: image/jpg" --data-binary "@test/cat.jpg"`
