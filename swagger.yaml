@@ -1,19 +1,22 @@
 swagger: "2.0"
 info:
-  description: "Get info on the sent image"
   version: "1.0.0"
-  title: "Toy API"
+  title: "Toy API Form"
 paths:
   "/{proxy+}":
     post:
       consumes:
-      - image/jpg
+      - application/json
+      - multipart/form-data
+
       # For AWS Integration
       x-amazon-apigateway-request-validators:
         basic:
           validateRequestParameters: true
+      x-amazon-apigateway-binary-media-types:
+        - '*/*'
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         httpMethod: "POST"
         # Replace AWS_REGION and ACCOUNT_ID in uri
-        uri: "arn:aws:apigateway:{AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:016363657960:function:ToyFunction/invocations"
+        uri: "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:016363657960:function:ToyFunctionForm/invocations"

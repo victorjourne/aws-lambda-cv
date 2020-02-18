@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'Toy example, return image shape and size from multipart/form-data
+
+  '
+Globals:
+  Function:
+    Timeout: 200
+    MemorySize: 128
+    Environment:
+      Variables:
+        DUMMY_VAR: 1
+Resources:
+  ToyApiForm:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      DefinitionUri: s3://aws-lambda-cv-form/afb9ee9bb292c6e0bb74e3c10777c9a6
+      BinaryMediaTypes:
+      - multipart~1form-data
+  ToyFunctionForm:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: ToyFunctionForm
+      CodeUri: s3://aws-lambda-cv-form/3cb4dc410bf3433bc44e947d2568c726
+      Handler: lambda_function.lambda_handler
+      Role:
+        Fn::Sub: arn:aws:iam::${AWS::AccountId}:role/lambda
+      Runtime: python3.6
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      Layers:
+      - Fn::Sub: arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:pillow-toolbeit:1
+      Events:
+        PostEvent:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: ToyApiForm
+            Path: /{proxy+}
+            Method: POST
