@@ -1,14 +1,12 @@
 swagger: "2.0"
 info:
   version: "1.0.0"
-  title: "Toy API Form"
+  title: "Toy API binary"
 paths:
   "/{proxy+}":
     post:
       consumes:
-      - application/json
-      - multipart/form-data
-
+      - image/jpg
       # For AWS Integration
       x-amazon-apigateway-request-validators:
         basic:
@@ -19,4 +17,4 @@ paths:
         type: "aws_proxy"
         httpMethod: "POST"
         # Replace AWS_REGION and ACCOUNT_ID in uri
-        uri: "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:016363657960:function:ToyFunctionForm/invocations"
+        uri: "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:016363657960:function:ToyFunction/invocations"

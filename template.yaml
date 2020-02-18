@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  Toy example, return image shape and size from multipart/form-data
+  Toy example, return image shape and size from binary data
 Globals:
   Function:
     Timeout: 200
@@ -10,17 +10,17 @@ Globals:
       Variables:
         DUMMY_VAR: 1
 Resources:
-  ToyApiForm:
+  ToyApi:
     Type: AWS::Serverless::Api
     Properties:
       StageName: Prod
       DefinitionUri: ./swagger.yaml
       BinaryMediaTypes:
-         - multipart~1form-data
-  ToyFunctionForm:
+         - image~1jpg
+  ToyFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      FunctionName: ToyFunctionForm
+      FunctionName: ToyFunction
       CodeUri: ./src
       Handler: lambda_function.lambda_handler
       Role: !Sub arn:aws:iam::${AWS::AccountId}:role/lambda
@@ -28,11 +28,11 @@ Resources:
       Policies:
         - AWSLambdaBasicExecutionRole
       Layers:
-          - !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:pillow-toolbeit:1
+          - !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:pillow:6
       Events:
         PostEvent:
           Type: Api
           Properties:
-            RestApiId: !Ref "ToyApiForm"
+            RestApiId: !Ref "ToyApi"
             Path: "/{proxy+}"
             Method: POST
