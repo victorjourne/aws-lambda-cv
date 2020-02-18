@@ -1,12 +1,12 @@
 # aws-lambda-cv
-Toy example to illustrate how aws-lambda may be used in computer vision applications. This serveless API returns the size of an image.
+Toy example to illustrate how aws-lambda may be used in computer vision applications. This serveless API returns the bytes size of an image and its shape. The images are sent inside a form.
 
 The API deployment with sam-cli is included in this repository.
 
 ## Installation
 1. To run the example, AWS account is needed.
 2. Clone the repo.
-3. Create python virtaul environment:
+3. Create python virtual environment:
 - `make venv`
 
 4. Sam cli has just been installed. Test it:
